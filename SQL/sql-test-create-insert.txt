@@ -1,0 +1,27 @@
+http://sqlfiddle.com/#!9/6ddfd/2
+
+Isert to
+
+exemple dans le schéma de création de table
+
+CREATE TABLE Météo
+    (`ville` varchar(9), `haut` int, `bas` int)
+;
+    
+INSERT INTO Météo
+    (`ville`, `haut`, `bas`)
+VALUES
+    ('Bruxelles', 27, 13),
+    ('Liège', 25, 15),
+    ('Namur', 26, 15),
+    ('Charleroi', 25, 12),
+    ('Bruges', 28, 16)
+;
+INSERT INTO Météo
+    (`ville`,`haut`,`bas`)
+VALUES
+    ('Uccle',32,5)
+
+
+autrement :
+UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition];

@@ -1,0 +1,117 @@
+SELECT:
+
+http://sqlfiddle.com/#!9/6ddfd/4282
+
+toutes les villes et leur température minimum:
+			SELECT ville, bas FROM Météo;
+
+Là où les villes dont la température maximale dépasse 27 degrés
+			SELECT ville FROM Météo WHERE haut>=27;
+
+Là où les villes dont la température minimale sera inférieure ou égale à 15 degrés
+			SELECT ville FROM Météo WHERE bas<=15;
+
+Là où les villes dont la température minimale sera égale à 15 degrés
+			SELECT ville FROM Météo WHERE bas=15;
+
+Là où les villes dont la température minimale ne sera PAS égale à 15 degrés
+			SELECT ville FROM Météo WHERE bas<>15;
+
+Là où les villes dont le nom commence par "Br"
+			SELECT ville FROM Météo WHERE ville LIKE 'Br%';
+
+Là où les villes dont la température maximale se situe entre 26 et 28 degrés
+			SELECT ville FROM Météo WHERE ville LIKE 'Br%';
+
+Là où les villes dont la température minimale est égale à 14 ou est égale à 16 degrés
+			SELECT ville FROM Météo WHERE bas=14 OR bas=16;
+
+Là où les villes dont la température maximale est supérieure ou égale à 26 et la température minimale est inférieure à 14
+			SELECT ville FROM Météo WHERE haut>=26 AND bas<14;
+
+
+http://sqlfiddle.com/#!9/3c37f/24
+
+Affiche tous les octocats et leurs données
+			SELECT * FROM octocats;
+
+Affiche uniquement les prénoms
+			SELECT firstname FROM octocats;
+
+Affiche les prénoms, noms et age de chaque octocat
+			SELECT firstname, lastname, age FROM octocats;
+
+Affiche les octocats dont le nom commence par 'N'
+			SELECT lastname FROM octocats WHERE lastname LIKE 'N%';
+
+Affiche le prénom et le nom des octocats de la promo "promo1-central"
+			SSELECT firstname, lastname FROM octocats WHERE promo='promo1-central';
+
+Affiche le prénom, le nom et l'année de naissance des octocats de la promo "promo1-anderlecht"
+			SELECT firstname, lastname, birthdate FROM octocats WHERE promo='promo1-anderlecht';
+
+
+ORDER BY
+			SELECT ville FROM météo ORDER BY ville ASC;
+
+LIMIT le nombre de résultat, 1 dans ce cas
+			SELECT ville FROM météo ORDER BY ville ASC LIMIT 0,1 ;
+
+
+Affiche le prénom et nom de tous les octocats, par ordre alphabétique ascendant du prénom.
+			SELECT firstname, lastname FROM octocats ORDER BY firstname ASC;
+
+Affiche le prénom et nom de tous les octocats, par ordre alphabétique descendant du nom de famille.
+			SELECT firstname, lastname FROM octocats ORDER BY lastname DESC;
+
+Affiche le prénom, nom et âge de tous les octocats, du plus jeune au plus âgé.
+			SELECT firstname, lastname, age FROM octocats ORDER BY age ASC;
+
+Affiche le prénom, nom et âge de tous les octocats, du plus âgé au plus jeune.
+			SELECT firstname, lastname, age FROM octocats ORDER BY age DESC;
+
+Affiche le prénom, nom et âge de tous les octocats, du plus jeune au plus âgé, de la promo "promo1-central".
+			SELECT firstname, lastname, age FROM octocats WHERE promo='promo1-central' ORDER BY age ASC;
+
+Affiche le prénom, nom et âge de tous les octocats, du plus jeune au plus âgé, de la promo "promo1-central" et dont l'âge se situe entre 23 et 28 ans.
+			SELECT firstname, lastname, age FROM octocats WHERE (age BETWEEN 23 AND 28) AND (promo='promo1-central') ORDER BY age ASC;
+
+Affiche le prénom, nom, âge et genre de tous les octocats, du plus jeune au plus âgé, de la promo "promo1-central" et dont l'âge se situe entre 25 et 35 ans.
+			SELECT firstname, lastname, age FROM octocats WHERE (age BETWEEN 25 AND 35) AND (promo='promo1-central') ORDER BY age ASC;
+
+Affiche le prénom, nom, âge et genre de tous les octocats, du plus jeune au plus âgé, de la promo "promo1-central", dont l'âge se situe entre 25 et 35 ans et dont le genre est masculin.
+			SELECT firstname, lastname, age FROM octocats WHERE (age BETWEEN 25 AND 35) AND (promo='promo1-central') AND (gender='M') ORDER BY age ASC;
+
+Affiche le prénom, nom, âge de l'octocat le plus âgé de Becode/Central. Donc tu dois obtenir un tableau avec une seule rangée.
+			SELECT firstname, lastname, age FROM octocats WHERE promo='promo1-central' ORDER BY age DESC LIMIT 0,1;
+
+
+Concat
+Elle permet de concaténer des colonnes pour recevoir un tableau plus facile à traiter ensuite en PHP.
+			SELECT CONCAT('ville: ', ville, ': ', bas, '/', haut ) FROM météo;
+
+Count
+Tu veux savoir combien il y a de villes dans le tableau? Tu peux simplement demander via SQL en utilisant la fonction COUNT().
+			SELECT COUNT(*) FROM météo;
+
+Tu veux vérifier qu'il n'y a pas eu une double entrée pour Bruxelles? Utilise COUNT() et une clause WHERE pour savoir le nombre de fois que "Bruxelles" se trouve dans la table météo.
+			SELECT COUNT(*) FROM météo WHERE ville='Bruxelles';
+
+infos:https://openclassrooms.com/fr/courses/918836-concevez-votre-site-web-avec-php-et-mysql/915107-les-fonctions-sql
+
+
+
+Combien y a-t-il de garçons à Becode?
+			SELECT COUNT(*) FROM octocats where gender='M';
+
+Combien y a-t-il de filles à Becode/Central ?
+			SELECT COUNT(*) FROM octocats where (gender='F') AND (promo='promo1-central');
+
+Combien y a-t-il de garçons à Becode/Central ?
+			SELECT COUNT(*) FROM octocats where (gender='F') AND (promo='promo1-central');
+
+Combien y a-t-il d'octocats dont le prénom est 'Nadia' à becode?
+			SELECT COUNT(*) FROM octocats where firstname='Nadia';
+
+trouve la fonction permettant de n'afficher que l'année de la colonne "birthdate" et affiche le prénom de tous les octocats et leur année de naissance. (indice: comment dit-on "année" en anglais?)
+			SELECT firstname, Substring(birthdate,-4) as value FROM octocats;

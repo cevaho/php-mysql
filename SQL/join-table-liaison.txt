@@ -1,0 +1,41 @@
+une table user (id,userName,userEmail,userPassword)
+une table message (idMess,content)
+une table de liaison (userId,messageId)
+
+jointure de débutant:
+
+	SELECT * 
+	FROM 
+		`user`,
+		`message`, 
+		`user_has_message` 
+	WHERE 
+		user_has_message.userId = user.id 
+	AND 
+		user_has_message.messageId = message.idMess;
+
+
+
+jointure complexe :
+
+	SELECT 	user.userName as noma,
+		message.content as contena,
+		user_has_message.messageId as idmessa 
+	FROM `user` 
+	LEFT JOIN 
+		`user_has_message`
+	ON 
+		user.id = user_has_message.userId 
+	LEFT JOIN 
+		`message`
+	ON 
+		user_has_message.messageId = message.idMess;
+
+fonctionne dans phpmyadmin et en php 
+mais il faut faire attention à adapter le nom d'allias quand on veut afficher la valeur
+	while ($donnees = $resultat->fetch())
+				{echo '<tr><td>'.$donnees['noma'].'</td>';}
+et pas
+	while ($donnees = $resultat->fetch())
+				{echo '<tr><td>'.$donnees['userName'].'</td>';}
+
